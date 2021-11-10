@@ -1,4 +1,4 @@
-import { fontsStl } from "./src/ts/functions";
+import { fontsStl } from "common-front/src/ts/functions";
 
 const autoprefixer = require("gulp-autoprefixer");
 const browsersync = require("browser-sync").create();
@@ -27,7 +27,7 @@ const browserify = require("browserify");
 const sourceify = require("sourceify");
 const source = require("vinyl-source-stream");
 const tsify = require("tsify");
-const {dest, src, series, parallel, watch, task} = require("gulp");
+const { dest, src, series, parallel, watch, task } = require("gulp");
 
 const projectFolder = require("path").basename(__dirname);
 const srcFolder = "src";
@@ -89,13 +89,13 @@ const images = () =>
         .pipe(src(path.src.img))
         .pipe(imagemin(
             [
-                imagemin.gifsicle({interlaced: true}),
-                imagemin.mozjpeg({progressive: true}),
-                imagemin.optipng({optimizationLevel: 5}),
+                imagemin.gifsicle({ interlaced: true }),
+                imagemin.mozjpeg({ progressive: true }),
+                imagemin.optipng({ optimizationLevel: 5 }),
                 imagemin.svgo({
                     plugins: [
-                        {removeViewBox: false},
-                        {cleanupIDs: false}
+                        { removeViewBox: false },
+                        { cleanupIDs: false }
                     ]
                 })
             ]
@@ -107,18 +107,18 @@ const clean = () => del(path.clean);
 
 const css = () =>
     src(`${srcFolder}/scss/style.scss`)
-        .pipe(scss({outputStyle: "expanded"}).on("error", scss.logError))
+        .pipe(scss({ outputStyle: "expanded" }).on("error", scss.logError))
         .pipe(autoprefixer({
             overrideBrowserslist: ["last 5 version"],
             cascade: true
         }))
         .pipe(webpcss())
         .pipe(groupMedia())
-        .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(sourcemaps.write())
         .pipe(dest(path.build.css))
-        .pipe(cleanCss({level: 2}))
-        .pipe(rename({suffix: ".min"}))
+        .pipe(cleanCss({ level: 2 }))
+        .pipe(rename({ suffix: ".min" }))
         .pipe(dest(path.build.css))
         .pipe(browsersync.stream());
 
@@ -167,7 +167,7 @@ const bundleTs = () => {
 
     f.pipe(source("bundle.js"))
         .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(sourcemaps.write("./"))
         .pipe(dest(path.build.js));
 
