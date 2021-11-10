@@ -1,4 +1,4 @@
-import { fontsStl } from "common-front/src/ts/functions";
+import { fontsStl } from "./node_modules/common-front/src/ts/functions";
 
 const autoprefixer = require("gulp-autoprefixer");
 const browsersync = require("browser-sync").create();
@@ -158,7 +158,7 @@ const bundleTs = () => {
             basedir: ".",
             debug: true,
             transform: [sourceify],
-            entries: ["src/ts/dynamicAdapt.ts"],
+            entries: ["node_modules/common-front/src/ts/dynamicAdapt.ts"],
             cache: {},
             packageCache: {}
         })
